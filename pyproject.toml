@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "release-pilot"
 version = "1.0.0"
 description = "Deterministic orchestration of white-label app builds"
-readme = ""
+readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
 authors = [
