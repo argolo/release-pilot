@@ -1,4 +1,4 @@
-# 🚀 ReleasePilot
+# 🚀 ReleasePilot — Deterministic orchestration of white-label app builds
 
 **ReleasePilot** é um **orquestrador assistido de releases** que executa comandos `yarn` de forma **organizada, determinística e controlada**, a partir de variáveis informadas pelo operador (plataforma, contratante, ambiente e comando).
 
