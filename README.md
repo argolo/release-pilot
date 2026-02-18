@@ -4,6 +4,11 @@
 
 Seu objetivo é **automatizar e padronizar o processo de construção, empacotamento e entrega de aplicativos white-label**, respeitando as particularidades de cada contratante, ambiente e plataforma, sem abrir mão do **controle humano em pontos críticos**.
 
+O **ReleasePilot** tem como finalidade **orquestrar** a execução de comandos, e não encapsular lógica de baixo nível ou fluxos excessivamente específicos. Por esse motivo, comandos operacionais mais granulares, customizações profundas ou variações específicas por plataforma, contratante ou ambiente **devem ser implementados em fluxos próprios**, acionados indiretamente pelo `yarn`. 
+
+O papel do orquestrador é **ordenar, coordenar e operar** esses comandos de forma consistente, previsível e auditável. Para que isso funcione corretamente, é necessário que o `package.json` contenha **aliases de scripts** que sigam o padrão esperado pelo ReleasePilot (`{plataforma}:{contratante}:{ambiente}:{comando}`), permitindo que o `yarn` atue como camada de execução e o ReleasePilot como camada de orquestração.
+
+
 ---
 
 ## 🎯 Propósito
