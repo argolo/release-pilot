@@ -6,8 +6,9 @@
 [![Last Commit](https://img.shields.io/github/last-commit/argolo/release-pilot)](https://github.com/argolo/release-pilot/commits/main)
 [![Open Issues](https://img.shields.io/github/issues/argolo/release-pilot)](https://github.com/argolo/release-pilot/issues)
 
-[![PyPI](https://img.shields.io/pypi/v/release-pilot)](https://pypi.org/project/release-pilot/)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/release-pilot)](https://pypi.org/project/release-pilot/)
+[![PyPI Version](https://img.shields.io/pypi/v/release-pilot.svg)](https://pypi.org/project/release-pilot/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/release-pilot.svg)](https://pypi.org/project/release-pilot/)
+[![PyPI](https://badge.fury.io/py/release-pilot.svg)](https://pypi.org/project/release-pilot/)
 
 
 **ReleasePilot** is an **assisted release orchestrator** that executes `yarn` commands in an **organized, deterministic, and controlled** manner, based on variables provided by the operator (platform, contractor, environment, and command).
