@@ -1,14 +1,3 @@
-Perfeito — vou **atualizar o README** para refletir corretamente:
-
-* 📛 **Nome final:** **ReleasePilot**
-* 🎯 **Propósito:** orquestrador de execução de comandos `yarn`
-* 🧠 **Intenção clara:** organizar, ordenar e operar comandos para **automatizar o processo de build de apps white-label**, respeitando diferenças por contratante, ambiente e plataforma
-* ✍️ Linguagem técnica, objetiva e madura (nível ferramenta corporativa)
-
-Abaixo está o **README.md revisado**, já com o tom certo.
-
----
-
 # 🚀 ReleasePilot
 
 **ReleasePilot** é um **orquestrador assistido de releases** que executa comandos `yarn` de forma **organizada, determinística e controlada**, a partir de variáveis informadas pelo operador (plataforma, contratante, ambiente e comando).
