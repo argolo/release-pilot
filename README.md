@@ -182,6 +182,121 @@ Esse resumo facilita auditoria, comunicação e rastreabilidade do release.
 
 ---
 
+Perfeito — segue uma **seção pronta de README**, focada **exclusivamente no macOS**, com o **caminho de sucesso mais curto**, sem alternativas confusas nem ramos desnecessários.
+
+Você pode **copiar e colar direto** no `README.md`.
+
+---
+
+## 🍎 Instalação no macOS (recomendado)
+
+No macOS, a forma **correta, segura e confiável** de instalar o **ReleasePilot** como uma ferramenta global é usando **pipx**.
+Isso evita problemas de permissão, conflitos com o Python do sistema e garante isolamento adequado.
+
+### ✅ Pré-requisitos
+
+* macOS
+* Python **3.9 ou superior**
+* Yarn instalado e funcional
+* Acesso ao repositório do projeto
+
+---
+
+### 🚀 Passo a passo (caminho mais curto)
+
+#### 1️⃣ Instalar o `pipx`
+
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+```
+
+> ⚠️ Após esse comando, **feche e reabra o terminal**.
+
+---
+
+#### 2️⃣ Entrar no diretório do projeto
+
+```bash
+cd release-pilot   # diretório onde está o pyproject.toml
+```
+
+---
+
+#### 3️⃣ Instalar o ReleasePilot globalmente
+
+```bash
+pipx install .
+```
+
+Pronto. O comando estará disponível globalmente como:
+
+```bash
+release-pilot
+```
+
+---
+
+### ▶️ Teste rápido
+
+```bash
+release-pilot
+```
+
+Se o menu interativo aparecer, a instalação foi concluída com sucesso ✅
+
+---
+
+### 🔍 Verificações úteis (opcional)
+
+```bash
+which releasepilot
+pipx list
+```
+
+Saída esperada (exemplo):
+
+```
+~/.local/bin/releasepilot
+```
+
+---
+
+### 🧹 Atualização do ReleasePilot
+
+Após alterar o código ou atualizar a versão:
+
+```bash
+pipx reinstall releasepilot
+```
+
+---
+
+### ❌ Desinstalação
+
+```bash
+pipx uninstall releasepilot
+```
+
+---
+
+### ⚠️ Observações importantes para macOS
+
+* **Não use `sudo pip install`**
+* **Não use o Python do sistema para instalar CLIs**
+* **Não copie binários manualmente**
+* Para ferramentas de linha de comando em Python, **pipx é sempre a escolha certa**
+
+---
+
+### 🧠 Regra prática
+
+> **Biblioteca Python → `pip install`**
+> **Ferramenta CLI Python → `pipx install`**
+
+
+---
+
 ## 🔮 Evoluções Futuras
 
 * Modo `--dry-run`
