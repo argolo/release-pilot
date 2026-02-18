@@ -1,92 +1,96 @@
 # 🚀 ReleasePilot — Deterministic orchestration of white-label app builds
 
-**ReleasePilot** é um **orquestrador assistido de releases** que executa comandos `yarn` de forma **organizada, determinística e controlada**, a partir de variáveis informadas pelo operador (plataforma, contratante, ambiente e comando).
+**ReleasePilot** is an **assisted release orchestrator** that executes `yarn` commands in an **organized, deterministic, and controlled** manner, based on variables provided by the operator (platform, contractor, environment, and command).
 
-Seu objetivo é **automatizar e padronizar o processo de construção, empacotamento e entrega de aplicativos white-label**, respeitando as particularidades de cada contratante, ambiente e plataforma, sem abrir mão do **controle humano em pontos críticos**.
+Its primary goal is to **standardize and automate the build, packaging, and delivery process of white-label applications**, while respecting the specific differences between contractors, environments, and platforms — without sacrificing **human control at critical steps**.
 
-O **ReleasePilot** tem como finalidade **orquestrar** a execução de comandos, e não encapsular lógica de baixo nível ou fluxos excessivamente específicos. Por esse motivo, comandos operacionais mais granulares, customizações profundas ou variações específicas por plataforma, contratante ou ambiente **devem ser implementados em fluxos próprios**, acionados indiretamente pelo `yarn`. 
+ReleasePilot is intentionally designed to **orchestrate** commands, not to encapsulate low-level logic or highly specific operational flows. For this reason, granular commands, deep customizations, or platform-specific behaviors **must live in dedicated build flows**, which are then invoked by `yarn`.
 
-O papel do orquestrador é **ordenar, coordenar e operar** esses comandos de forma consistente, previsível e auditável. Para que isso funcione corretamente, é necessário que o `package.json` contenha **aliases de scripts** que sigam o padrão esperado pelo ReleasePilot (`{plataforma}:{contratante}:{ambiente}:{comando}`), permitindo que o `yarn` atue como camada de execução e o ReleasePilot como camada de orquestração.
+The orchestrator’s responsibility is to **order, coordinate, and operate** these commands in a consistent, predictable, and auditable way. To enable this, the `package.json` must define **script aliases** that follow the ReleasePilot convention:
 
+```
+{platform}:{contractor}:{environment}:{command}
+```
 
----
-
-## 🎯 Propósito
-
-O ReleasePilot foi criado para resolver um problema recorrente em ecossistemas white-label:
-
-> **Como executar múltiplos comandos de build de forma consistente, previsível e auditável, quando cada aplicação possui variações por contratante, ambiente e plataforma?**
-
-A resposta não é automação cega — é **orquestração consciente**.
+This allows `yarn` to act as the execution layer, while ReleasePilot acts as the orchestration layer.
 
 ---
 
-## ✨ Principais Características
+## 🎯 Purpose
 
-* 🎛️ Orquestração de comandos `yarn` baseada em variáveis operacionais
-* 📱 Suporte a múltiplas plataformas (`android`, `ios`)
-* 🏢 Descoberta automática de **contratantes** via estrutura de diretórios
-* 🧪 Descoberta automática de **ambientes** por contratante
-* ⚙️ Comandos suportados: `add`, `build`, `deploy`
-* 🔁 Opção **“todas”** em todas as seleções
-* ⏸️ Execução **assistida**, com pausas humanas entre:
+ReleasePilot was created to solve a recurring problem in white-label ecosystems:
 
-  * Ambientes
-  * Contratantes
-* 📌 Planejamento de execução **idêntico à ordem real**
-* 📦 Resumo final rastreável do release
-* 🧩 Código simples, pythonico e sem dependências externas
+> **How can we execute multiple build commands in a consistent, predictable, and auditable way when each application varies by contractor, environment, and platform?**
+
+The answer is not blind automation — it is **conscious orchestration**.
 
 ---
 
-## 🧠 Filosofia de Operação
+## ✨ Key Features
 
-O ReleasePilot **não executa comandos aleatoriamente**.
+* 🎛️ Orchestration of `yarn` commands based on operational variables
+* 📱 Multi-platform support (`android`, `ios`)
+* 🏢 Automatic discovery of **contractors** via directory structure
+* 🧪 Automatic discovery of **environments** per contractor
+* ⚙️ Supported commands: `add`, `build`, `deploy`
+* 🔁 **“All”** option available in every selection step
+* ⏸️ **Assisted execution** with human checkpoints between:
 
-Ele:
-
-* Organiza
-* Ordena
-* Opera
-
-Cada comando `yarn` é executado dentro de um **contexto bem definido**, garantindo que:
-
-* Builds não se misturem entre contratantes
-* Ambientes sejam respeitados
-* Artefatos possam ser recuperados entre etapas
-* O operador tenha clareza total do que está sendo executado
+  * Environments
+  * Contractors
+* 📌 Execution planning **identical to the real execution order**
+* 📦 Final, traceable release summary
+* 🧩 Simple, pythonic code with **no external dependencies**
 
 ---
 
-## 📂 Estrutura Esperada do Projeto
+## 🧠 Operational Philosophy
+
+ReleasePilot **does not execute commands randomly**.
+
+It:
+
+* Organizes
+* Orders
+* Operates
+
+Each `yarn` command is executed within a **well-defined context**, ensuring that:
+
+* Builds are not mixed across contractors
+* Environments are strictly respected
+* Artifacts can be safely retrieved between steps
+* The operator has full visibility into what is being executed
+
+---
+
+## 📂 Expected Project Structure
 
 ```text
 project-root/
 ├─ contractor/
-  ├─ quickup/
-  │  ├─ sandbox/
-  │  └─ beta/
-  |  └─ alfa/
-  ├─ kompa/
-     ├─ sandbox/
-     └─ beta/
-     └─ prod/
-
+│  ├─ quickup/
+│  │  ├─ sandbox/
+│  │  ├─ alfa/
+│  │  └─ beta/
+│  ├─ kompa/
+│     ├─ sandbox/
+│     ├─ beta/
+│     └─ prod/
 ```
 
-> O nome do projeto é automaticamente inferido a partir do **diretório raiz**.
+> The project name is automatically inferred from the **root directory name**.
 
 ---
 
-## 🧾 Padrão de Comando Executado
+## 🧾 Command Pattern
 
-O ReleasePilot executa comandos no seguinte formato:
+ReleasePilot executes commands following this convention:
 
 ```bash
-yarn {plataforma}:{contratante}:{ambiente}:{comando}
+yarn {platform}:{contractor}:{environment}:{command}
 ```
 
-### Exemplo
+### Example
 
 ```bash
 yarn android:quickup:beta:build
@@ -94,147 +98,47 @@ yarn android:quickup:beta:build
 
 ---
 
-## 🚀 Instalação
+## 🚀 Installation
 
-### Requisitos
+### Requirements
 
 * Python **3.9+**
 * Node.js + Yarn
-* Git (opcional, mas recomendado para rastreabilidade)
-
-### Instalação local (desenvolvimento)
-
-```bash
-pip install -e .
-```
-
-### Instalação padrão
-
-```bash
-pip install .
-```
-
-Após a instalação, o comando estará disponível como:
-
-```bash
-release-pilot
-```
+* Git (optional, but recommended for traceability)
 
 ---
 
-## ▶️ Uso
+## 🍎 macOS Installation (recommended)
 
-Execute o comando no diretório raiz do projeto:
+On macOS, the **recommended and reliable** way to install ReleasePilot as a global CLI is using **pipx**.
+This avoids permission issues, conflicts with the system Python, and ensures proper isolation.
 
-```bash
-release-pilot
-```
-
-O ReleasePilot irá solicitar, de forma interativa:
-
-1. Plataforma
-2. Contratante
-3. Ambiente
-4. Comando
-
-Em todas as etapas é possível selecionar **uma opção específica** ou **todas**, permitindo execução combinatória controlada.
-
----
-
-## ⏸️ Execução Assistida
-
-Durante a execução, o ReleasePilot **pausa automaticamente** entre ambientes e contratantes, aguardando confirmação explícita do operador.
-
-Esse comportamento é intencional e garante:
-
-* Recuperação de artefatos
-* Validação manual
-* Sincronização com pipelines externos
-* Redução de risco em produção
-
----
-
-## 📌 Planejamento de Execução
-
-Antes de executar qualquer comando, o ReleasePilot exibe o **planejamento completo**, exatamente na **ordem em que os comandos serão executados**.
-
-Isso elimina ambiguidades e garante previsibilidade total.
-
----
-
-## ✅ Resumo Final de Release
-
-Ao final da execução, o ReleasePilot apresenta um resumo consolidado contendo:
-
-* 📁 Projeto
-* 📦 Contratantes
-* 🌿 Versão
-* 🧪 Ambientes
-* 📱 Plataformas
-* ⚙️ Total de comandos executados
-
-Esse resumo facilita auditoria, comunicação e rastreabilidade do release.
-
----
-
-## 🛡️ Casos de Uso Ideais
-
-* Construção de apps white-label
-* Ambientes sandbox / alfa / beta / produção
-* Equipes com múltiplos clientes
-* Releases sensíveis ou regulados
-* Times que precisam de **controle + automação**
-
----
-
-Perfeito — segue uma **seção pronta de README**, focada **exclusivamente no macOS**, com o **caminho de sucesso mais curto**, sem alternativas confusas nem ramos desnecessários.
-
-Você pode **copiar e colar direto** no `README.md`.
-
----
-
-## 🍎 Instalação no macOS (recomendado)
-
-No macOS, a forma **correta, segura e confiável** de instalar o **ReleasePilot** como uma ferramenta global é usando **pipx**.
-Isso evita problemas de permissão, conflitos com o Python do sistema e garante isolamento adequado.
-
-### ✅ Pré-requisitos
-
-* macOS
-* Python **3.9 ou superior**
-* Yarn instalado e funcional
-* Acesso ao repositório do projeto
-
----
-
-### 🚀 Passo a passo (caminho mais curto)
-
-#### 1️⃣ Instalar o `pipx`
+### 1️⃣ Install `pipx`
 
 ```bash
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath
 ```
 
-> ⚠️ Após esse comando, **feche e reabra o terminal**.
+> ⚠️ After this step, **close and reopen your terminal**.
 
 ---
 
-#### 2️⃣ Entrar no diretório do projeto
+### 2️⃣ Navigate to the project directory
 
 ```bash
-cd release-pilot   # diretório onde está o pyproject.toml
+cd release-pilot   # directory containing pyproject.toml
 ```
 
 ---
 
-#### 3️⃣ Instalar o ReleasePilot globalmente
+### 3️⃣ Install ReleasePilot globally
 
 ```bash
 pipx install .
 ```
 
-Pronto. O comando estará disponível globalmente como:
+The command will now be available globally as:
 
 ```bash
 release-pilot
@@ -242,84 +146,116 @@ release-pilot
 
 ---
 
-### ▶️ Teste rápido
+### ▶️ Quick Test
 
 ```bash
 release-pilot
 ```
 
-Se o menu interativo aparecer, a instalação foi concluída com sucesso ✅
+If the interactive menu appears, the installation was successful ✅
 
 ---
 
-### 🔍 Verificações úteis (opcional)
+### 🔍 Optional Checks
 
 ```bash
-which releasepilot
+which release-pilot
 pipx list
 ```
 
-Saída esperada (exemplo):
+Expected output (example):
 
-```
-~/.local/bin/releasepilot
+```text
+~/.local/bin/release-pilot
 ```
 
 ---
 
-### 🧹 Atualização do ReleasePilot
+### 🧹 Updating ReleasePilot
 
-Após alterar o código ou atualizar a versão:
+After updating the code or version:
 
 ```bash
-pipx reinstall releasepilot
+pipx reinstall release-pilot
 ```
 
 ---
 
-### ❌ Desinstalação
+### ❌ Uninstalling
 
 ```bash
-pipx uninstall releasepilot
+pipx uninstall release-pilot
 ```
 
 ---
 
-### ⚠️ Observações importantes para macOS
+### ⚠️ Important Notes for macOS
 
-* **Não use `sudo pip install`**
-* **Não use o Python do sistema para instalar CLIs**
-* **Não copie binários manualmente**
-* Para ferramentas de linha de comando em Python, **pipx é sempre a escolha certa**
-
----
-
-### 🧠 Regra prática
-
-> **Biblioteca Python → `pip install`**
-> **Ferramenta CLI Python → `pipx install`**
-
+* **Do not use `sudo pip install`**
+* **Do not use the system Python to install CLIs**
+* **Do not manually copy binaries**
+* For Python CLI tools, **pipx is always the correct choice**
 
 ---
 
-## 🔮 Evoluções Futuras
+### 🧠 Rule of Thumb
 
-* Modo `--dry-run`
-* Execução não interativa (`--ci`)
-* Exportação de resumo (`.txt` / `.md`)
-* Inclusão de commit hash e tag SemVer
-* Integração com Slack / Jira / Discord / Telegran
-* Persistência de logs
+> **Python library → `pip install`**
+> **Python CLI tool → `pipx install`**
 
 ---
 
-## 📜 Licença
+## 📌 Execution Planning
+
+Before executing any command, ReleasePilot displays the **complete execution plan**, in the **exact order in which commands will run**.
+
+This eliminates ambiguity and ensures full predictability.
+
+---
+
+## ✅ Final Release Summary
+
+At the end of execution, ReleasePilot presents a consolidated summary including:
+
+* 📁 Project
+* 📦 Contractors
+* 🌿 Git branch / version
+* 🧪 Environments
+* 📱 Platforms
+* ⚙️ Total executed commands
+
+This summary improves auditability, communication, and release traceability.
+
+---
+
+## 🛡️ Ideal Use Cases
+
+* White-label app builds
+* Sandbox / alfa / beta / production environments
+* Teams supporting multiple clients
+* Sensitive or regulated releases
+* Teams that require **control + automation**
+
+---
+
+## 🔮 Future Enhancements
+
+* `--dry-run` mode
+* Non-interactive execution (`--ci`)
+* Summary export (`.txt` / `.md`)
+* Commit hash and SemVer tag support
+* Slack / Jira / Discord / Telegram integrations
+* Persistent execution logs
+
+---
+
+## 📜 License
 
 MIT License.
 
 ---
 
-## 👤 Autor
+## 👤 Author
 
-Desenvolvido por **André Argôlo**
-CTO • Arquiteto de Software • DevOps
+Developed by **André Argôlo**
+CTO • Software Architect • DevOps
