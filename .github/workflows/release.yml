@@ -23,6 +23,13 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Set version from git tag
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          echo "Setting version to $VERSION"
+          sed -i.bak "s/^version = \".*\"/version = \"$VERSION\"/" pyproject.toml
+          cat pyproject.toml
+
       - name: Install build tools
         run: |
           python -m pip install --upgrade pip
