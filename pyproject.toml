@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "release-pilot"
+version = "1.0.0"
+description = "CLI assistido para execução de comandos Yarn"
+readme = ""
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+  { name = "Andre Argolo" }
+]
+
+[project.scripts]
+release-pilot = "release_pilot:main"
+
+
