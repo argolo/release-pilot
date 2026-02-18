@@ -1,5 +1,15 @@
 # 🚀 ReleasePilot — Deterministic orchestration of white-label app builds
 
+[![CI](https://github.com/argolo/release-pilot/actions/workflows/ci.yml/badge.svg)](https://github.com/argolo/release-pilot/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/github/license/argolo/release-pilot)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/argolo/release-pilot)](https://github.com/argolo/release-pilot/commits/main)
+[![Open Issues](https://img.shields.io/github/issues/argolo/release-pilot)](https://github.com/argolo/release-pilot/issues)
+
+[![PyPI](https://img.shields.io/pypi/v/release-pilot)](https://pypi.org/project/release-pilot/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/release-pilot)](https://pypi.org/project/release-pilot/)
+
+
 **ReleasePilot** is an **assisted release orchestrator** that executes `yarn` commands in an **organized, deterministic, and controlled** manner, based on variables provided by the operator (platform, contractor, environment, and command).
 
 Its primary goal is to **standardize and automate the build, packaging, and delivery process of white-label applications**, while respecting the specific differences between contractors, environments, and platforms — without sacrificing **human control at critical steps**.
@@ -255,7 +265,23 @@ MIT License.
 
 ---
 
+Perfeito — segue uma **seção “Author” no padrão profissional de projetos open source**, limpa, objetiva e com o tom certo (nem pessoal demais, nem corporativo demais).
+
+Você pode **copiar e colar diretamente no README.md**.
+
+---
+
 ## 👤 Author
 
-Developed by **André Argôlo**
+**André Argôlo**
 CTO • Software Architect • DevOps
+
+* 🌐 Website: [https://argolo.dev](https://argolo.dev)
+* 🐙 GitHub: [@argolo](https://github.com/argolo)
+
+---
+
+### 🧭 About
+
+André Argôlo is a software architect and technology leader with extensive experience in designing and operating mission-critical systems. His work focuses on building scalable platforms, improving developer experience, and creating pragmatic tooling that balances automation with human control — especially in regulated and high-responsibility environments.
+
