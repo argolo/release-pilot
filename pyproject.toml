@@ -10,7 +10,7 @@ readme = ""
 requires-python = ">=3.9"
 license = "MIT"
 authors = [
-  { name = "Andre Argolo" }
+  { name = "Andre Argolo", email = "mail@argolo.dev" }
 ]
 
 [project.scripts]
