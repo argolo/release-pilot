@@ -266,12 +266,6 @@ MIT License.
 
 ---
 
-Perfeito — segue uma **seção “Author” no padrão profissional de projetos open source**, limpa, objetiva e com o tom certo (nem pessoal demais, nem corporativo demais).
-
-Você pode **copiar e colar diretamente no README.md**.
-
----
-
 ## 👤 Author
 
 **André Argôlo**
