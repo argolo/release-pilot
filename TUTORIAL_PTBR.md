@@ -228,20 +228,20 @@ Esse output pode ser usado para:
 
 ## 🛡️ Boas práticas recomendadas
 
-✔️ Use o `contractor/` como organização estrutural
-✔️ Centralize lógica operacional no `package.json`
-✔️ Use o ReleasePilot apenas como **orquestrador**
-✔️ Mantenha checkpoints humanos em produção
+* ✔️ Use o `contractor/` como organização estrutural
+* ✔️ Centralize lógica operacional no `package.json`
+* ✔️ Use o ReleasePilot apenas como **orquestrador**
+* ✔️ Mantenha checkpoints humanos em produção
 
 ---
 
 ## 🚫 Anti-patterns (o que evitar)
 
-❌ Lógica de build dentro do ReleasePilot
-❌ Scripts fora do padrão esperado
-❌ Automatizar produção sem pausas
-❌ Misturar ambientes ou contratantes
-❌ Tratar o orquestrador como ferramenta de build
+* ❌ Lógica de build dentro do ReleasePilot
+* ❌ Scripts fora do padrão esperado
+* ❌ Automatizar produção sem pausas
+* ❌ Misturar ambientes ou contratantes
+* ❌ Tratar o orquestrador como ferramenta de build
 
 ---
 

@@ -117,36 +117,11 @@ yarn android:quickup:beta:build
 * Node.js + Yarn
 * Git (optional, but recommended for traceability)
 
----
-
-## 🍎 macOS Installation (recommended)
-
-On macOS, the **recommended and reliable** way to install ReleasePilot as a global CLI is using **pipx**.
-This avoids permission issues, conflicts with the system Python, and ensures proper isolation.
-
-### 1️⃣ Install `pipx`
-
-```bash
-python3 -m pip install --user pipx
-python3 -m pipx ensurepath
-```
-
-> ⚠️ After this step, **close and reopen your terminal**.
-
----
-
-### 2️⃣ Navigate to the project directory
-
-```bash
-cd release-pilot   # directory containing pyproject.toml
-```
-
----
 
 ### 3️⃣ Install ReleasePilot globally
 
 ```bash
-pipx install .
+pip3 install release-pilot
 ```
 
 The command will now be available globally as:
@@ -171,7 +146,7 @@ If the interactive menu appears, the installation was successful ✅
 
 ```bash
 which release-pilot
-pipx list
+pip list
 ```
 
 Expected output (example):
@@ -182,20 +157,10 @@ Expected output (example):
 
 ---
 
-### 🧹 Updating ReleasePilot
-
-After updating the code or version:
-
-```bash
-pipx reinstall release-pilot
-```
-
----
-
 ### ❌ Uninstalling
 
 ```bash
-pipx uninstall release-pilot
+pip3 uninstall release-pilot
 ```
 
 ---
@@ -212,7 +177,6 @@ pipx uninstall release-pilot
 ### 🧠 Rule of Thumb
 
 > **Python library → `pip install`**
-> **Python CLI tool → `pipx install`**
 
 ---
 
