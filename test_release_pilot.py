@@ -75,7 +75,7 @@ def test_command_generation_order_is_deterministic():
         "kompa": ["beta"],
     }
     platforms = ["android", "ios"]
-    commands = ["add", "build"]
+    commands = ["add", "build", "deploy"]
 
     result = generate_commands(
         contractors,
@@ -87,12 +87,16 @@ def test_command_generation_order_is_deterministic():
     assert result == [
         "yarn android:quickup:sandbox:add",
         "yarn android:quickup:sandbox:build",
+        "yarn android:quickup:sandbox:deploy",
         "yarn ios:quickup:sandbox:add",
         "yarn ios:quickup:sandbox:build",
+        "yarn ios:quickup:sandbox:deploy",
         "yarn android:kompa:beta:add",
         "yarn android:kompa:beta:build",
+        "yarn android:kompa:beta:deploy",
         "yarn ios:kompa:beta:add",
         "yarn ios:kompa:beta:build",
+        "yarn ios:kompa:beta:deploy",
     ]
 
 
@@ -132,8 +136,38 @@ def test_choose_option_single_selection(_):
     assert result == ["a"]
 
 
+@patch("builtins.input", side_effect=["1 2"])
+def test_choose_option_multiple_selection(_):
+    result = release_pilot.choose_option("Test", ["a", "b", "c"])
+    assert result == ["a", "b"]
+
+
+@patch("builtins.input", side_effect=["2 2 1"])
+def test_choose_option_multiple_selection_removes_duplicates_and_normalizes_order(_):
+    result = release_pilot.choose_option("Test", ["a", "b", "c"])
+    assert result == ["a", "b"]
+
+
 @patch("builtins.input", side_effect=["3"])
 def test_choose_option_all_expands(_):
+    result = release_pilot.choose_option("Test", ["a", "b"])
+    assert result == ["a", "b"]
+
+
+@patch("builtins.input", side_effect=["0", "1"])
+def test_choose_option_retries_after_invalid_numeric_input(_):
+    result = release_pilot.choose_option("Test", ["a", "b"])
+    assert result == ["a"]
+
+
+@patch("builtins.input", side_effect=["x y", "2"])
+def test_choose_option_retries_after_non_numeric_input(_):
+    result = release_pilot.choose_option("Test", ["a", "b"])
+    assert result == ["b"]
+
+
+@patch("builtins.input", side_effect=["3 1", "3"])
+def test_choose_option_all_must_be_selected_alone(_):
     result = release_pilot.choose_option("Test", ["a", "b"])
     assert result == ["a", "b"]
 
@@ -148,4 +182,4 @@ def test_supported_platforms_are_not_empty():
 
 
 def test_command_order_is_respected():
-    assert release_pilot.COMMANDS_ORDER == ["add", "build"]
+    assert release_pilot.COMMANDS_ORDER == ["add", "build", "deploy"]
