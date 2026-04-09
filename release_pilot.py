@@ -36,14 +36,17 @@ def purple(text: str) -> str:
 # =========================
 BASE_CONTRACTOR_PATH = "./contractor"
 PLATFORMS = ["android", "ios"]
-COMMANDS_ORDER = ["add", "build"]
+COMMANDS_ORDER = ["add", "build", "deploy"]
 
 
 def choose_option(title: str, options: List[str]) -> List[str]:
     """
     Display an interactive menu and return the selected option(s).
 
-    Supports a special '(all)' option that expands to all available choices.
+    Supports:
+    - selecting one option (e.g. "2")
+    - selecting multiple options (e.g. "1 3 4")
+    - selecting "(all)" by its index
 
     :param title: Menu title
     :param options: Available options
@@ -56,14 +59,33 @@ def choose_option(title: str, options: List[str]) -> List[str]:
         print(purple(f"{idx}. {option}"))
 
     while True:
+        raw_choice = input(
+            purple("Select one or more options (e.g. 1 3 4): ")
+        ).strip()
+
         try:
-            choice = int(input(purple("Select an option: ")))
-            if 1 <= choice <= len(options_with_all):
-                selected = options_with_all[choice - 1]
-                return options if selected == "(all)" else [selected]
+            choices = [int(item) for item in raw_choice.split()]
         except ValueError:
-            pass
-        print(purple("⚠ Invalid option. Please try again."))
+            print(purple("⚠ Invalid option. Please try again."))
+            continue
+
+        if not choices:
+            print(purple("⚠ Invalid option. Please try again."))
+            continue
+
+        if any(choice < 1 or choice > len(options_with_all) for choice in choices):
+            print(purple("⚠ Invalid option. Please try again."))
+            continue
+
+        all_index = len(options_with_all)
+        if all_index in choices:
+            if len(choices) > 1:
+                print(purple("⚠ '(all)' must be selected alone. Please try again."))
+                continue
+            return options
+
+        selected_indexes = sorted(set(choices))
+        return [options_with_all[index - 1] for index in selected_indexes]
 
 
 def list_directories(path: str) -> List[str]:
@@ -159,11 +181,11 @@ def print_release_summary(
     print("\n" + purple("=" * 70))
     print(purple(f"{BOLD}🚀 RELEASE SUMMARY{RESET}"))
     print(purple("=" * 70))
-    print(purple(f"📁 Project      : {project_name}"))
-    print(purple(f"🌿 Git Branch   : {git_branch}"))
-    print(purple(f"📦 Contractors : {contractors_str}"))
-    print(purple(f"🧪 Environments: {environments_str}"))
-    print(purple(f"📱 Platforms   : {platforms_str}"))
+    print(purple(f" Project     : {project_name}"))
+    print(purple(f" Git Branch  : {git_branch}"))
+    print(purple(f" Contractors : {contractors_str}"))
+    print(purple(f" Environments: {environments_str}"))
+    print(purple(f" Platforms   : {platforms_str}"))
     print(purple("=" * 70))
 
 
